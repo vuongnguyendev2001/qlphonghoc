@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app_quanlythietbi/loaithietbi/dlloaithietbi.dart';
 import 'package:app_quanlythietbi/screens/login.dart';
 import 'package:app_quanlythietbi/thietbi/suathietbi_Screen.dart';
 import 'package:app_quanlythietbi/thietbi/themthietbi_Screen.dart';
@@ -10,17 +11,15 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
-import '../loaithietbi/dlloaithietbi.dart';
-
-class thietbi_Screen extends StatefulWidget {
-  final String MaPH;
-  const thietbi_Screen({Key? key, required this.MaPH}) : super(key: key);
+class ThietBiScreen extends StatefulWidget {
+  final String maPH;
+  const ThietBiScreen({Key? key, required this.maPH}) : super(key: key);
 
   @override
-  State<thietbi_Screen> createState() => _thietbi_ScreenState();
+  State<ThietBiScreen> createState() => _ThietBiScreenState();
 }
 
-class _thietbi_ScreenState extends State<thietbi_Screen> {
+class _ThietBiScreenState extends State<ThietBiScreen> {
   Future getData() async {
     var url = "http://192.168.1.6:8012/php_connect/dlthietbi.php";
     var response = await http.get(Uri.parse(url));
@@ -34,18 +33,17 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
         automaticallyImplyLeading: true,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: Padding(
-            padding:
-                const EdgeInsets.only(right: 6.0, top: 6, bottom: 6, left: 8),
+          child: const Padding(
+            padding: EdgeInsets.only(right: 6.0, top: 6, bottom: 6, left: 8),
             child: CircleAvatar(
               radius: 18,
-              child: Icon(FontAwesomeIcons.arrowLeft),
               backgroundColor: Colors.blueGrey,
+              child: Icon(FontAwesomeIcons.arrowLeft),
             ),
           ),
         ),
         centerTitle: true,
-        title: Text('DANH SÁCH THIẾT BỊ'),
+        title: const Text('DANH SÁCH THIẾT BỊ'),
         actions: [
           levelUser == 1
               ? IconButton(
@@ -53,12 +51,12 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          themthietbi_Screen(MaPH: widget.MaPH),
+                          ThemThietBiScreen(MaPH: widget.maPH),
                     ),
                   ),
-                  icon: Icon(FontAwesomeIcons.add),
+                  icon: const Icon(FontAwesomeIcons.add),
                 )
-              : SizedBox(),
+              : const SizedBox(),
         ],
       ),
       body: Padding(
@@ -68,17 +66,18 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
             Stack(
               children: [
                 Container(
+                  padding: const EdgeInsets.all(0),
                   width: double.infinity,
                   height: 35,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(left: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         alignment: Alignment.centerLeft,
                         height: double.infinity,
                         width: MediaQuery.of(context).size.width * 0.3,
-                        child: Text(
+                        child: const Text(
                           'Tên TB',
                           style: TextStyle(
                             fontSize: 22,
@@ -90,7 +89,7 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                         alignment: Alignment.centerLeft,
                         height: double.infinity,
                         width: MediaQuery.of(context).size.width * 0.3,
-                        child: Text(
+                        child: const Text(
                           ('Nhãn Hiệu'),
                           style: TextStyle(
                             fontSize: 22,
@@ -102,7 +101,7 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                         alignment: Alignment.centerLeft,
                         height: double.infinity,
                         width: MediaQuery.of(context).size.width * 0.3,
-                        child: Text(
+                        child: const Text(
                           ('Số lượng'),
                           style: TextStyle(
                             fontSize: 22,
@@ -116,7 +115,7 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Expanded(
@@ -133,12 +132,12 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => dlloaithietbi_Screen(
+                                    builder: (context) => DLLoaiThietBiScreen(
                                           listltb: listthietbi,
                                           indexltb: index,
                                         )),
                               ),
-                              child: listthietbi[index]['MaPH'] == widget.MaPH
+                              child: listthietbi[index]['MaPH'] == widget.maPH
                                   ? Padding(
                                       padding:
                                           const EdgeInsets.only(bottom: 10),
@@ -158,8 +157,8 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Container(
-                                              padding:
-                                                  EdgeInsets.only(left: 10),
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
                                               alignment: Alignment.centerLeft,
                                               height: double.infinity,
                                               width: MediaQuery.of(context)
@@ -168,7 +167,8 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                                   0.3,
                                               child: Text(
                                                 listthietbi[index]['TenTB'],
-                                                style: TextStyle(fontSize: 20),
+                                                style: const TextStyle(
+                                                    fontSize: 20),
                                               ),
                                             ),
                                             Container(
@@ -181,7 +181,8 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                               child: Text(
                                                 listthietbi[index]
                                                     ['TenNhanHieu'],
-                                                style: TextStyle(fontSize: 20),
+                                                style: const TextStyle(
+                                                    fontSize: 20),
                                               ),
                                             ),
                                             Container(
@@ -200,8 +201,9 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                                         Text(
                                                           listthietbi[index]
                                                               ['SoLuong'],
-                                                          style: TextStyle(
-                                                              fontSize: 20),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 20),
                                                         ),
                                                         Row(
                                                           children: [
@@ -212,7 +214,7 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                                                 context,
                                                                 MaterialPageRoute(
                                                                   builder: (context) =>
-                                                                      suathietbi_Screen(
+                                                                      SuaThietBiScreen(
                                                                           list:
                                                                               listthietbi,
                                                                           index:
@@ -220,7 +222,7 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                                                 ),
                                                               ),
                                                               child:
-                                                                  CircleAvatar(
+                                                                  const CircleAvatar(
                                                                 backgroundColor:
                                                                     Colors
                                                                         .blueGrey,
@@ -232,7 +234,7 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                                                         .white),
                                                               ),
                                                             ),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               width: 7,
                                                             ),
                                                             GestureDetector(
@@ -246,7 +248,7 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                                                         // backgroundColor: Colors.grey.shade100,
                                                                         // title: Text('Thông báo'),
                                                                         content:
-                                                                            Text(
+                                                                            const Text(
                                                                           'Bạn chắc chắn xóa chứ?',
                                                                           style:
                                                                               TextStyle(
@@ -261,7 +263,7 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                                                               Navigator.of(context).pop();
                                                                             },
                                                                             child:
-                                                                                Text('Hủy'),
+                                                                                const Text('Hủy'),
                                                                           ),
                                                                           MaterialButton(
                                                                             onPressed:
@@ -279,20 +281,20 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                                                               );
                                                                               EasyLoading.showSuccess(
                                                                                 'Xóa phòng thành công',
-                                                                                duration: Duration(milliseconds: 1300),
+                                                                                duration: const Duration(milliseconds: 1300),
                                                                                 maskType: EasyLoadingMaskType.black,
                                                                               );
                                                                               Navigator.pop(context);
                                                                             },
                                                                             child:
-                                                                                Text('Đồng ý'),
+                                                                                const Text('Đồng ý'),
                                                                           ),
                                                                         ],
                                                                       );
                                                                     });
                                                               },
                                                               child:
-                                                                  CircleAvatar(
+                                                                  const CircleAvatar(
                                                                       backgroundColor:
                                                                           Colors
                                                                               .blueGrey,
@@ -318,11 +320,13 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                                         Text(
                                                           listthietbi[index]
                                                               ['SoLuong'],
-                                                          style: TextStyle(
-                                                              fontSize: 20),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 20),
                                                         ),
-                                                        Icon(FontAwesomeIcons
-                                                            .rightToBracket),
+                                                        const Icon(
+                                                            FontAwesomeIcons
+                                                                .rightToBracket),
                                                       ],
                                                     ),
                                             ),
@@ -330,7 +334,7 @@ class _thietbi_ScreenState extends State<thietbi_Screen> {
                                         ),
                                       ),
                                     )
-                                  : SizedBox(),
+                                  : const SizedBox(),
                             );
                           })
                       : SpinKitFadingCircle(

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:app_quanlythietbi/home/home.dart';
 import 'package:app_quanlythietbi/screens/register.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,17 +11,17 @@ import 'package:wc_form_validators/wc_form_validators.dart';
 import '../component/button.dart';
 import '../component/contrast.dart';
 
-class Login_Screen extends StatefulWidget {
-  const Login_Screen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
   static const String id = 'login';
 
   @override
-  State<Login_Screen> createState() => _Login_ScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 late int levelUser;
 
-class _Login_ScreenState extends State<Login_Screen> {
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   Future login() async {
@@ -39,11 +38,12 @@ class _Login_ScreenState extends State<Login_Screen> {
       });
       EasyLoading.showSuccess(
         "Đăng nhập thành công !",
-        duration: Duration(milliseconds: 1300),
+        duration: const Duration(milliseconds: 1300),
         maskType: EasyLoadingMaskType.black,
       );
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const home_Screen()));
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } else {
       EasyLoading.showError("Sai tài khoản hoặc mật khẩu");
     }
@@ -61,12 +61,12 @@ class _Login_ScreenState extends State<Login_Screen> {
             Container(
               height: 170,
               width: 170,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                 image: AssetImage('lib/asset/images/ctu_Logo.png'),
               )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             const Text(
@@ -79,22 +79,22 @@ class _Login_ScreenState extends State<Login_Screen> {
                   fontFamily: "Roboto",
                   fontWeight: FontWeight.w600),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50.0,
             ),
             TextFormField(
               controller: username,
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+              style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.start,
               decoration: kTextFieldDecoration.copyWith(
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     FontAwesomeIcons.envelope,
                     size: 26,
                   ),
                   hintText: 'Tài khoản',
-                  hintStyle:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                  hintStyle: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w500)),
             ),
             const SizedBox(
               height: 10.0,
@@ -109,20 +109,21 @@ class _Login_ScreenState extends State<Login_Screen> {
               controller: password,
               obscureText: true,
               textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
               decoration: kTextFieldDecoration.copyWith(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   FontAwesomeIcons.lock,
                   size: 26,
                 ),
                 hintText: 'Mật khẩu',
-                hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                hintStyle:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               ),
             ),
             const SizedBox(
               height: 5.0,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             RoundeButton(
@@ -132,16 +133,18 @@ class _Login_ScreenState extends State<Login_Screen> {
                 login();
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             RoundeButton(
               title: 'ĐĂNG KÍ',
               color: Colors.blueGrey,
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Register_Screen())),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RegisterScreen())),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             RoundeButton(
@@ -154,7 +157,7 @@ class _Login_ScreenState extends State<Login_Screen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => home_Screen(),
+                    builder: (context) => const HomeScreen(),
                   ),
                 );
               },

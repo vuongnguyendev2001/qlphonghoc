@@ -1,8 +1,9 @@
 import 'dart:convert';
-
+import 'package:app_quanlythietbi/home/addRoom_Screen.dart';
 import 'package:app_quanlythietbi/home/editRoom.dart';
 import 'package:app_quanlythietbi/home/home.dart';
 import 'package:app_quanlythietbi/screens/login.dart';
+import 'package:app_quanlythietbi/thietbi/thietbi_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -10,17 +11,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
-import '../thietbi/thietbi_Screen.dart';
-import 'addRoom_Screen.dart';
-
-class listRoom_Screen extends StatefulWidget {
-  const listRoom_Screen({Key? key}) : super(key: key);
+class ListRoomScreen extends StatefulWidget {
+  const ListRoomScreen({Key? key}) : super(key: key);
 
   @override
-  State<listRoom_Screen> createState() => _listRoom_ScreenState();
+  State<ListRoomScreen> createState() => _ListRoomScreenState();
 }
 
-class _listRoom_ScreenState extends State<listRoom_Screen> {
+class _ListRoomScreenState extends State<ListRoomScreen> {
   Future getData() async {
     var url = "http://192.168.1.6:8012/php_connect/dlphonghoc.php";
     var response = await http.get(Uri.parse(url));
@@ -38,19 +36,19 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => home_Screen(),
+              builder: (context) => const HomeScreen(),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
+          child: const Padding(
+            padding: EdgeInsets.all(6.0),
             child: CircleAvatar(
               radius: 16,
-              child: Icon(FontAwesomeIcons.arrowLeft),
               backgroundColor: Colors.blueGrey,
+              child: Icon(FontAwesomeIcons.arrowLeft),
             ),
           ),
         ),
-        title: Text(
+        title: const Text(
           'DANH SÁCH PHÒNG HỌC',
         ),
         actions: [
@@ -59,10 +57,10 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => addRoom_Screen())),
-                  icon: Icon(FontAwesomeIcons.add),
+                          builder: (context) => const AddRoomScreen())),
+                  icon: const Icon(FontAwesomeIcons.add),
                 )
-              : SizedBox(),
+              : const SizedBox(),
         ],
       ),
       body: Padding(
@@ -73,7 +71,7 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+                  children: const [
                     Text(
                       'Tên Phòng',
                       style: TextStyle(
@@ -93,7 +91,7 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Expanded(
@@ -111,7 +109,7 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      thietbi_Screen(MaPH: list[index]['MaPH']),
+                                      ThietBiScreen(maPH: list[index]['MaPH']),
                                 ),
                               ),
                               child: Padding(
@@ -135,7 +133,7 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                                                 0.25,
                                         child: Text(
                                           list[index]['TenPH'],
-                                          style: TextStyle(fontSize: 22),
+                                          style: const TextStyle(fontSize: 22),
                                         ),
                                       ),
                                       Container(
@@ -146,7 +144,7 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                                                 0.31,
                                         child: Text(
                                           list[index]['Tang'],
-                                          style: TextStyle(fontSize: 22),
+                                          style: const TextStyle(fontSize: 22),
                                         ),
                                       ),
                                       levelUser == 1
@@ -166,7 +164,7 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                                                           MaterialPageRoute(
                                                             builder:
                                                                 (context) =>
-                                                                    editRoom(
+                                                                    EditRoom(
                                                               listthietbi: list,
                                                               indexthietbi:
                                                                   index,
@@ -174,10 +172,10 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                                                           ),
                                                         );
                                                       },
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                           FontAwesomeIcons
                                                               .pen)),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 5,
                                                   ),
                                                   IconButton(
@@ -188,7 +186,8 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                                                               return CupertinoAlertDialog(
                                                                 // backgroundColor: Colors.grey.shade100,
                                                                 // title: Text('Thông báo'),
-                                                                content: Text(
+                                                                content:
+                                                                    const Text(
                                                                   'Bạn chắc chắn xóa chứ?',
                                                                   style:
                                                                       TextStyle(
@@ -204,7 +203,7 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                                                                               context)
                                                                           .pop();
                                                                     },
-                                                                    child: Text(
+                                                                    child: const Text(
                                                                         'Hủy'),
                                                                   ),
                                                                   MaterialButton(
@@ -226,21 +225,21 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                                                                           .showSuccess(
                                                                         'Xóa phòng thành công',
                                                                         duration:
-                                                                            Duration(milliseconds: 1300),
+                                                                            const Duration(milliseconds: 1300),
                                                                         maskType:
                                                                             EasyLoadingMaskType.black,
                                                                       );
                                                                       Navigator.pop(
                                                                           context);
                                                                     },
-                                                                    child: Text(
+                                                                    child: const Text(
                                                                         'Đồng ý'),
                                                                   ),
                                                                 ],
                                                               );
                                                             });
                                                       },
-                                                      icon: Icon(
+                                                      icon: const Icon(
                                                           FontAwesomeIcons
                                                               .trash)),
                                                 ],
@@ -265,7 +264,7 @@ class _listRoom_ScreenState extends State<listRoom_Screen> {
                                                         color: Colors.blueAccent
                                                             .shade700),
                                                   ),
-                                                  Icon(FontAwesomeIcons
+                                                  const Icon(FontAwesomeIcons
                                                       .rightFromBracket),
                                                 ],
                                               ))

@@ -5,25 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class home_Screen extends StatefulWidget {
-  const home_Screen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
   static const String id = 'home';
   @override
-  State<home_Screen> createState() => _home_ScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _home_ScreenState extends State<home_Screen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey.shade300,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(57),
+          preferredSize: const Size.fromHeight(57),
           child: AppBar(
             backgroundColor: Colors.lightBlue.shade700,
             centerTitle: true,
             automaticallyImplyLeading: false,
-            title: Text(
+            title: const Text(
               'Trang Chủ',
               style: TextStyle(fontSize: 23),
             ),
@@ -39,7 +39,7 @@ class _home_ScreenState extends State<home_Screen> {
                         return CupertinoAlertDialog(
                           // backgroundColor: Colors.grey.shade100,
                           // title: Text('Thông báo'),
-                          content: Text(
+                          content: const Text(
                             'Bạn chắc chắn đăng xuất ?',
                             style: TextStyle(
                               fontSize: 18,
@@ -50,35 +50,35 @@ class _home_ScreenState extends State<home_Screen> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Text('Hủy'),
+                              child: const Text('Hủy'),
                             ),
                             MaterialButton(
                               onPressed: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Login_Screen(),
+                                    builder: (context) => const LoginScreen(),
                                   ),
                                 );
                                 EasyLoading.showSuccess(
                                   'Đăng xuất thành công !',
-                                  duration: Duration(milliseconds: 1300),
+                                  duration: const Duration(milliseconds: 1300),
                                   maskType: EasyLoadingMaskType.black,
                                 );
                               },
-                              child: Text('Đồng ý'),
+                              child: const Text('Đồng ý'),
                             ),
                           ],
                         );
                       });
                 },
                 child: Container(
-                  padding: EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.only(top: 5),
                   alignment: Alignment.center,
                   height: 140,
                   width: 100,
                   child: Column(
-                    children: [
+                    children: const [
                       Icon(FontAwesomeIcons.circleLeft),
                       SizedBox(
                         height: 5,
@@ -103,33 +103,33 @@ class _home_ScreenState extends State<home_Screen> {
                   childAspectRatio: 1.2,
                 ),
                 children: [
-                  Feature_Button(
+                  FeatureButton(
                     text: 'Quản lý Thiết Bị',
                     press: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => listRoom_Screen(),
+                            builder: (context) => const ListRoomScreen(),
                           ));
                     },
                     image: 'lib/asset/images/img_1.png',
                   ),
-                  Feature_Button(
+                  FeatureButton(
                     text: 'Báo Cáo Sửa chữa',
                     press: () {},
                     image: 'lib/asset/images/reportsuachua.png',
                   ),
-                  Feature_Button(
+                  FeatureButton(
                     text: 'Mượn phòng',
                     press: () {},
                     image: 'lib/asset/images/img.png',
                   ),
-                  Feature_Button(
+                  FeatureButton(
                     text: 'Báo Cáo Thiết Bị',
                     press: () {},
                     image: 'lib/asset/images/reportthietbi.jpg',
                   ),
-                  Feature_Button(
+                  FeatureButton(
                     text: 'Yêu Cầu Đăng Ký',
                     press: () {},
                     image: 'lib/asset/images/icon_PH.png',
@@ -144,13 +144,13 @@ class _home_ScreenState extends State<home_Screen> {
                   childAspectRatio: 1.2,
                 ),
                 children: [
-                  Feature_Button(
+                  FeatureButton(
                     text: 'Phòng học',
                     press: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => listRoom_Screen(),
+                            builder: (context) => const ListRoomScreen(),
                           ));
                     },
                     image: 'lib/asset/images/img_1.png',
@@ -160,11 +160,11 @@ class _home_ScreenState extends State<home_Screen> {
   }
 }
 
-class Feature_Button extends StatelessWidget {
+class FeatureButton extends StatelessWidget {
   final VoidCallback press;
   String text;
   String image;
-  Feature_Button({
+  FeatureButton({
     required this.image,
     required this.text,
     Key? key,
@@ -192,12 +192,12 @@ class Feature_Button extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
             text,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ],
       ),

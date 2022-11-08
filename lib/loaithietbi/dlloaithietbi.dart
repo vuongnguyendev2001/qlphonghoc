@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:app_quanlythietbi/loaithietbi/sualtb.dart';
 import 'package:app_quanlythietbi/loaithietbi/themloaithietbi.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,18 +11,18 @@ import 'package:http/http.dart' as http;
 import '../bctinhtrang/thembaocaott.dart';
 import '../screens/login.dart';
 
-class dlloaithietbi_Screen extends StatefulWidget {
+class DLLoaiThietBiScreen extends StatefulWidget {
   final List listltb;
   final int indexltb;
-  const dlloaithietbi_Screen(
+  const DLLoaiThietBiScreen(
       {Key? key, required this.listltb, required this.indexltb})
       : super(key: key);
 
   @override
-  State<dlloaithietbi_Screen> createState() => _dlloaithietbi_ScreenState();
+  State<DLLoaiThietBiScreen> createState() => _DLLoaiThietBiScreenState();
 }
 
-class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
+class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
   Future getData() async {
     var url = "http://192.168.1.6:8012/php_connect/dlloaithietbi.php";
     var response = await http.get(Uri.parse(url));
@@ -37,32 +36,31 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
         automaticallyImplyLeading: true,
         leading: GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: Padding(
-            padding:
-                const EdgeInsets.only(right: 6.0, top: 6, bottom: 6, left: 8),
+          child: const Padding(
+            padding: EdgeInsets.only(right: 6.0, top: 6, bottom: 6, left: 8),
             child: CircleAvatar(
               radius: 18,
-              child: Icon(FontAwesomeIcons.arrowLeft),
               backgroundColor: Colors.blueGrey,
+              child: Icon(FontAwesomeIcons.arrowLeft),
             ),
           ),
         ),
         centerTitle: true,
-        title: Text('DANH SÁCH LOẠI THIẾT BỊ'),
+        title: const Text('DANH SÁCH LOẠI THIẾT BỊ'),
         actions: [
           levelUser == 1
               ? IconButton(
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => themLTB_Screen(
-                        MaTB: widget.listltb[widget.indexltb]['MaTB'],
+                      builder: (context) => ThemLTBScreen(
+                        maTB: widget.listltb[widget.indexltb]['MaTB'],
                       ),
                     ),
                   ),
-                  icon: Icon(FontAwesomeIcons.add),
+                  icon: const Icon(FontAwesomeIcons.add),
                 )
-              : SizedBox(),
+              : const SizedBox(),
         ],
       ),
       body: Padding(
@@ -72,17 +70,18 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
             Stack(
               children: [
                 Container(
+                  padding: const EdgeInsets.all(0),
                   width: double.infinity,
                   height: 35,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(left: 10),
+                        padding: const EdgeInsets.only(left: 10),
                         alignment: Alignment.centerLeft,
                         height: double.infinity,
                         width: MediaQuery.of(context).size.width * 0.33,
-                        child: Text(
+                        child: const Text(
                           'Tên LTB',
                           style: TextStyle(
                             fontSize: 22,
@@ -94,7 +93,7 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                         alignment: Alignment.center,
                         height: double.infinity,
                         width: MediaQuery.of(context).size.width * 0.3,
-                        child: Text(
+                        child: const Text(
                           ('Ngày Lắp'),
                           style: TextStyle(
                             fontSize: 22,
@@ -120,7 +119,7 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Expanded(
@@ -138,8 +137,8 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => thembaocaott_Screen(
-                                      MaLTB: listloaithietbi[index]['MaLTB'],
+                                    builder: (context) => ThemBaoCaoTTScreen(
+                                      maLTB: listloaithietbi[index]['MaLTB'],
                                     ),
                                   ),
                                 );
@@ -178,8 +177,8 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                                   child: Text(
                                                     listloaithietbi[index]
                                                         ['TenLTB'],
-                                                    style:
-                                                        TextStyle(fontSize: 20),
+                                                    style: const TextStyle(
+                                                        fontSize: 20),
                                                   ),
                                                 ),
                                                 Container(
@@ -192,8 +191,8 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                                   child: Text(
                                                     listloaithietbi[index]
                                                         ['NgayLap'],
-                                                    style:
-                                                        TextStyle(fontSize: 20),
+                                                    style: const TextStyle(
+                                                        fontSize: 20),
                                                   ),
                                                 ),
                                                 Container(
@@ -217,7 +216,7 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                                                           .push(
                                                                     context,
                                                                     MaterialPageRoute(
-                                                                      builder: (context) => sualoaithietbi_Screen(
+                                                                      builder: (context) => SuaLoaiThietBiScreen(
                                                                           listltb:
                                                                               listloaithietbi,
                                                                           indexltb:
@@ -225,7 +224,7 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                                                     ),
                                                                   ),
                                                                   child:
-                                                                      CircleAvatar(
+                                                                      const CircleAvatar(
                                                                     backgroundColor:
                                                                         Colors
                                                                             .blueGrey,
@@ -237,7 +236,7 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                                                             .white),
                                                                   ),
                                                                 ),
-                                                                SizedBox(
+                                                                const SizedBox(
                                                                   width: 7,
                                                                 ),
                                                                 GestureDetector(
@@ -251,7 +250,7 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                                                             // backgroundColor: Colors.grey.shade100,
                                                                             // title: Text('Thông báo'),
                                                                             content:
-                                                                                Text(
+                                                                                const Text(
                                                                               'Bạn chắc chắn xóa chứ?',
                                                                               style: TextStyle(
                                                                                 fontSize: 18,
@@ -262,7 +261,7 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                                                                 onPressed: () {
                                                                                   Navigator.of(context).pop();
                                                                                 },
-                                                                                child: Text('Hủy'),
+                                                                                child: const Text('Hủy'),
                                                                               ),
                                                                               MaterialButton(
                                                                                 onPressed: () {
@@ -279,18 +278,18 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                                                                   );
                                                                                   EasyLoading.showSuccess(
                                                                                     'Xóa thành công !',
-                                                                                    duration: Duration(milliseconds: 1300),
+                                                                                    duration: const Duration(milliseconds: 1300),
                                                                                     maskType: EasyLoadingMaskType.black,
                                                                                   );
                                                                                   Navigator.pop(context);
                                                                                 },
-                                                                                child: Text('Đồng ý'),
+                                                                                child: const Text('Đồng ý'),
                                                                               ),
                                                                             ],
                                                                           );
                                                                         });
                                                                   },
-                                                                  child: CircleAvatar(
+                                                                  child: const CircleAvatar(
                                                                       backgroundColor: Colors.blueGrey,
                                                                       radius: 20,
                                                                       child: Icon(
@@ -313,11 +312,14 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                                               listloaithietbi[
                                                                       index]
                                                                   ['SoLuong'],
-                                                              style: TextStyle(
-                                                                  fontSize: 20),
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          20),
                                                             ),
-                                                            Icon(FontAwesomeIcons
-                                                                .rightToBracket),
+                                                            const Icon(
+                                                                FontAwesomeIcons
+                                                                    .rightToBracket),
                                                           ],
                                                         ),
                                                 ),
@@ -325,7 +327,7 @@ class _dlloaithietbi_ScreenState extends State<dlloaithietbi_Screen> {
                                             ),
                                           ),
                                         )
-                                      : SizedBox(),
+                                      : const SizedBox(),
                             );
                           })
                       : SpinKitFadingCircle(

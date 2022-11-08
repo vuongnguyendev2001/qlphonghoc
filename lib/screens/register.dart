@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:app_quanlythietbi/screens/login.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,15 +8,15 @@ import 'package:http/http.dart' as http;
 import '../component/button.dart';
 import '../component/contrast.dart';
 
-class Register_Screen extends StatefulWidget {
-  const Register_Screen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
   static const String id = 'register';
 
   @override
-  State<Register_Screen> createState() => _Register_ScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _Register_ScreenState extends State<Register_Screen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController user = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -35,17 +33,17 @@ class _Register_ScreenState extends State<Register_Screen> {
     if (data == "Error") {
       EasyLoading.showError(
         "Tài khoản đã tồn tại !",
-        duration: Duration(milliseconds: 1300),
+        duration: const Duration(milliseconds: 1300),
         maskType: EasyLoadingMaskType.black,
       );
     } else {
       EasyLoading.showSuccess(
         "Đăng ký thành công !",
-        duration: Duration(milliseconds: 1300),
+        duration: const Duration(milliseconds: 1300),
         maskType: EasyLoadingMaskType.black,
       );
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Login_Screen()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
     }
   }
 
@@ -66,39 +64,39 @@ class _Register_ScreenState extends State<Register_Screen> {
                 fontFamily: "Roboto",
                 fontWeight: FontWeight.w500),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50.0,
           ),
           TextFormField(
             controller: user,
-            style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+            style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
             keyboardType: TextInputType.text,
             textAlign: TextAlign.start,
             decoration: kTextFieldDecoration.copyWith(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   FontAwesomeIcons.envelope,
                   size: 26,
                 ),
                 hintText: 'Tài khoản',
                 hintStyle:
-                    TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
           ),
           const SizedBox(
             height: 10.0,
           ),
           TextFormField(
             controller: name,
-            style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+            style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
             keyboardType: TextInputType.text,
             textAlign: TextAlign.start,
             decoration: kTextFieldDecoration.copyWith(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   FontAwesomeIcons.user,
                   size: 26,
                 ),
                 hintText: 'Họ và tên',
                 hintStyle:
-                    TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
           ),
           const SizedBox(
             height: 10.0,
@@ -107,14 +105,15 @@ class _Register_ScreenState extends State<Register_Screen> {
             controller: password,
             obscureText: true,
             textAlign: TextAlign.start,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             decoration: kTextFieldDecoration.copyWith(
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 FontAwesomeIcons.lock,
                 size: 26,
               ),
               hintText: 'Mật khẩu',
-              hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              hintStyle:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             ),
           ),
           const SizedBox(
@@ -122,7 +121,7 @@ class _Register_ScreenState extends State<Register_Screen> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+            children: const [
               // Checkbox(
               //     value: showSpinner,
               //     onChanged: (value) {
@@ -140,7 +139,7 @@ class _Register_ScreenState extends State<Register_Screen> {
               // ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           RoundeButton(

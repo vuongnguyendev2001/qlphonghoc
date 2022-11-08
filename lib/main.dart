@@ -13,11 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       builder: EasyLoading.init(),
-      initialRoute: Login_Screen.id,
+      initialRoute: LoginScreen.id,
       routes: {
-        Login_Screen.id: (context) => Login_Screen(),
-        Register_Screen.id: (context) => Register_Screen(),
-        home_Screen.id: (context) => home_Screen(),
+        LoginScreen.id: (context) => const LoginScreen(),
+        RegisterScreen.id: (context) => const RegisterScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
       },
     );
   }
