@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:app_quanlythietbi/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -17,19 +18,21 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  String? selectedRole;
+  List Role = ['Sinh viên', 'Giảng viên', 'Kĩ thuật viên'];
+
   TextEditingController user = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   Future register() async {
-    var url = "http://192.168.1.6:8012/php_connect/register.php";
+    var url = "http://192.168.2.91:8012/php_connect/register.php";
     var response = await http.post(body: {
       "username": user.text,
       "fullname": name.text,
-      "password": password.text
+      "password": password.text,
+      "Role": selectedRole
     }, Uri.parse(url));
     var data = json.decode(response.body);
-    print(user.text);
-    print(password.text);
     if (data == "Error") {
       EasyLoading.showError(
         "Tài khoản đã tồn tại !",
@@ -117,27 +120,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
           const SizedBox(
-            height: 5.0,
+            height: 10.0,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              // Checkbox(
-              //     value: showSpinner,
-              //     onChanged: (value) {
-              //       setState(() {
-              //         showSpinner = value;
-              //         print(showSpinner);
-              //       });
-              //     }),
-              // Text(
-              //   'Lưu thông tin đăng nhập',
-              //   style: TextStyle(
-              //       fontSize: 19,
-              //       color: Colors.black54,
-              //       fontWeight: FontWeight.w500),
-              // ),
-            ],
+          Container(
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width * 0.5,
+            height: MediaQuery.of(context).size.width * 0.15,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade400,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: DropdownButton(
+              icon: Icon(Icons.arrow_drop_down),
+              iconSize: 36,
+              hint: Text(
+                'Tôi là ...',
+                style: TextStyle(fontSize: 23),
+              ),
+              value: selectedRole,
+              onChanged: (newRole) {
+                setState(() {
+                  selectedRole = newRole!;
+                });
+              },
+              items: Role.map((newRole) {
+                return DropdownMenuItem<String>(
+                  value: newRole,
+                  child: Text(
+                    newRole,
+                    style: TextStyle(fontSize: 22),
+                  ),
+                );
+              }).toList(),
+            ),
           ),
           const SizedBox(
             height: 20,

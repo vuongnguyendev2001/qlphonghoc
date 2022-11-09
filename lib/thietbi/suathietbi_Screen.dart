@@ -23,7 +23,7 @@ class _SuaThietBiScreenState extends State<SuaThietBiScreen> {
   TextEditingController soLuong = TextEditingController();
 
   void updateData() async {
-    var url = "http://192.168.1.6:8012/php_connect/suathietbi.php";
+    var url = "http://192.168.2.91:8012/php_connect/suathietbi.php";
     await http.post(Uri.parse(url), body: {
       'MaTB': widget.list[widget.index]['MaTB'],
       "TenTB": tenTB.text,
@@ -121,6 +121,5 @@ class _SuaThietBiScreenState extends State<SuaThietBiScreen> {
         ],
       ),
     );
-    ;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,8 +20,8 @@ class _ThemThietBiScreen extends State<ThemThietBiScreen> {
   TextEditingController soLuong = TextEditingController();
 
   Future themTB() async {
-    var url = "http://192.168.1.6:8012/php_connect/themthietbi.php";
-    http.post(Uri.parse(url), body: {
+    var url = "http://192.168.2.91:8012/php_connect/themthietbi.php";
+    await http.post(Uri.parse(url), body: {
       "TenTB": tenTB.text,
       "TenNhanHieu": tenNhanHieu.text,
       "SoLuong": soLuong.text,

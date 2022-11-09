@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_quanlythietbi/home/home.dart';
+import 'package:app_quanlythietbi/home/listRoom_Screen.dart';
 import 'package:app_quanlythietbi/screens/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -19,13 +20,14 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-late int levelUser;
+late String Role;
+late String iduser;
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   Future login() async {
-    var url = "http://192.168.1.6:8012/php_connect/login.php";
+    var url = "http://192.168.2.91:8012/php_connect/login.php";
     var response = await http.post(Uri.parse(url), body: {
       "username": username.text,
       "password": password.text,
@@ -34,18 +36,39 @@ class _LoginScreenState extends State<LoginScreen> {
     print(user);
     if (user != '0') {
       setState(() {
-        levelUser = int.parse(user);
+        Role = user;
       });
       EasyLoading.showSuccess(
         "Đăng nhập thành công !",
         duration: const Duration(milliseconds: 1300),
         maskType: EasyLoadingMaskType.black,
       );
+      print(Role);
       // ignore: use_build_context_synchronously
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      Role == 'admin'
+          ? Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()))
+          : Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ListRoomScreen()));
+      getID();
     } else {
       EasyLoading.showError("Sai tài khoản hoặc mật khẩu");
+    }
+  }
+
+  Future getID() async {
+    var url = "http://192.168.2.91:8012/php_connect/getiduser.php";
+    var response = await http.post(Uri.parse(url), body: {
+      "username": username.text,
+      "password": password.text,
+    });
+    var user = json.decode(response.body);
+    print(user);
+    print(user);
+    if (user != '') {
+      setState(() {
+        iduser = user;
+      });
     }
   }
 
@@ -70,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 30,
             ),
             const Text(
-              "HỆ THỐNG QUẢN LÝ VÀ ĐÁNH GIÁ PHÒNG HỌC",
+              "HỆ THỐNG QUẢN LÝ THIẾT BỊ PHÒNG HỌC",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 30,
@@ -152,12 +175,13 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Colors.grey.shade700,
               onPressed: () {
                 setState(() {
-                  levelUser = 4;
+                  Role = 'Khách';
+                  iduser = '0';
                 });
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const HomeScreen(),
+                    builder: (context) => ListRoomScreen(),
                   ),
                 );
               },

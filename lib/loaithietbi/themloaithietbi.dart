@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+
 import '../component/button.dart';
 import '../component/contrast.dart';
 
@@ -15,13 +16,13 @@ class ThemLTBScreen extends StatefulWidget {
 
 class _ThemLTBScreenState extends State<ThemLTBScreen> {
   TextEditingController tenLTB = TextEditingController();
-  DateTime? ngayLap = DateTime.now();
+  TextEditingController NgayLap = TextEditingController();
   Future themLTB() async {
-    var url = "http://192.168.1.6:8012/php_connect/themloaithietbi.php";
+    var url = "http://192.168.2.91:8012/php_connect/themloaithietbi.php";
     await http.post(Uri.parse(url), body: {
-      "tenLTB": tenLTB.text,
-      "ngayLap": ngayLap,
-      "maTB": widget.maTB,
+      "TenLTB": tenLTB.text,
+      "NgayLap": NgayLap.text,
+      "MaTB": widget.maTB,
     });
     EasyLoading.showSuccess(
       'Thêm Thành Công !',
@@ -56,49 +57,19 @@ class _ThemLTBScreenState extends State<ThemLTBScreen> {
           const SizedBox(
             height: 15,
           ),
-          GestureDetector(
-            onTap: () async {
-              DateTime? _ngayLap = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2020),
-                lastDate: DateTime(2030),
-              );
-              setState(() {
-                ngayLap = _ngayLap;
-                print(_ngayLap);
-              });
-            },
-            child: Container(
-              alignment: Alignment.centerLeft,
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.width * 0.14,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.shade400,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 1),
-                    child: Text(
-                      '${ngayLap!.day}/${ngayLap!.month}/${ngayLap!.year}',
-                      style: const TextStyle(
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  const Icon(
-                    FontAwesomeIcons.calendarDays,
-                    color: Colors.blueGrey,
-                  ),
-                ],
-              ),
-            ),
+          TextFormField(
+            controller: NgayLap,
+            style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+            keyboardType: TextInputType.text,
+            textAlign: TextAlign.start,
+            decoration: kTextFieldDecoration.copyWith(
+                prefixIcon: const Icon(
+                  FontAwesomeIcons.computer,
+                  size: 26,
+                ),
+                hintText: 'Nhập vào ngày lắp (VD: 20/2/2022)',
+                hintStyle:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
           ),
           const SizedBox(
             height: 15,

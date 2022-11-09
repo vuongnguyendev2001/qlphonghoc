@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+
 import '../component/button.dart';
 import '../component/contrast.dart';
 
@@ -21,7 +22,7 @@ class _EditRoomState extends State<EditRoom> {
   TextEditingController tang = TextEditingController();
 
   void updateData() async {
-    var url = "http://192.168.1.6:8012/php_connect/suaphong.php";
+    var url = "http://192.168.2.91:8012/php_connect/suaphong.php";
     await http.post(Uri.parse(url), body: {
       'MaPH': widget.listthietbi[widget.indexthietbi]['MaPH'],
       "TenPH": tenPH.text,

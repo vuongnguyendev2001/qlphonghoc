@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:app_quanlythietbi/home/addRoom_Screen.dart';
 import 'package:app_quanlythietbi/home/editRoom.dart';
 import 'package:app_quanlythietbi/home/home.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
+import '../component/contrast.dart';
+
 class ListRoomScreen extends StatefulWidget {
   const ListRoomScreen({Key? key}) : super(key: key);
 
@@ -20,48 +23,130 @@ class ListRoomScreen extends StatefulWidget {
 
 class _ListRoomScreenState extends State<ListRoomScreen> {
   Future getData() async {
-    var url = "http://192.168.1.6:8012/php_connect/dlphonghoc.php";
-    var response = await http.get(Uri.parse(url));
-    return json.decode(response.body);
+    var Url = "http://192.168.2.91:8012/php_connect/timphong.php";
+    var response1 = await http.post(Uri.parse(Url), body: {
+      "TenPH": Tenphonghoc.text,
+    });
+    return json.decode(response1.body);
   }
+
+  TextEditingController Tenphonghoc = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    print(Role);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlue.shade700,
-        centerTitle: true,
-        automaticallyImplyLeading: true,
-        leading: GestureDetector(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
-            ),
-          ),
-          child: const Padding(
-            padding: EdgeInsets.all(6.0),
-            child: CircleAvatar(
-              radius: 16,
-              backgroundColor: Colors.blueGrey,
-              child: Icon(FontAwesomeIcons.arrowLeft),
-            ),
-          ),
-        ),
-        title: const Text(
-          'DANH SÁCH PHÒNG HỌC',
-        ),
-        actions: [
-          levelUser == 1
-              ? IconButton(
-                  onPressed: () => Navigator.push(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(57),
+        child: AppBar(
+          backgroundColor: Colors.lightBlue.shade700,
+          centerTitle: true,
+          leading: Role == 'admin'
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AddRoomScreen())),
-                  icon: const Icon(FontAwesomeIcons.add),
+                        builder: (context) => HomeScreen(),
+                      ),
+                    );
+                    setState(() {
+                      iduser = '';
+                    });
+                  },
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.only(right: 6.0, top: 6, bottom: 6, left: 8),
+                    child: CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Colors.blueGrey,
+                      child: Icon(FontAwesomeIcons.arrowLeft),
+                    ),
+                  ),
                 )
-              : const SizedBox(),
-        ],
+              : SizedBox(),
+          title: const Text(
+            'DS PHÒNG HỌC',
+            style: TextStyle(fontSize: 23),
+          ),
+          actions: [
+            Role == 'admin'
+                ? IconButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddRoomScreen(),
+                      ),
+                    ),
+                    icon: const Icon(FontAwesomeIcons.plus),
+                  )
+                : GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CupertinoAlertDialog(
+                              // backgroundColor: Colors.grey.shade100,
+                              // title: Text('Thông báo'),
+                              content: Text(
+                                'Bạn chắc chắn đăng xuất ?',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              actions: [
+                                MaterialButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Hủy'),
+                                ),
+                                MaterialButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      Role = '';
+                                    });
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginScreen(),
+                                      ),
+                                    );
+                                    EasyLoading.showSuccess(
+                                      'Đăng xuất thành công !',
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      maskType: EasyLoadingMaskType.black,
+                                    );
+                                  },
+                                  child: const Text('Đồng ý'),
+                                ),
+                              ],
+                            );
+                          });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 5),
+                      alignment: Alignment.center,
+                      height: 140,
+                      width: 100,
+                      child: Column(
+                        children: [
+                          Icon(FontAwesomeIcons.circleLeft),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            'Đăng xuất',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
@@ -69,25 +154,51 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
           children: [
             Stack(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Tên Phòng',
-                      style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w600,
+                TextFormField(
+                  controller: Tenphonghoc,
+                  style: const TextStyle(
+                      fontSize: 19, fontWeight: FontWeight.w400),
+                  keyboardType: TextInputType.text,
+                  textAlign: TextAlign.start,
+                  decoration: kTextFieldDecoration.copyWith(
+                      suffixIcon: IconButton(
+                        padding: EdgeInsets.only(right: 30),
+                        onPressed: () {
+                          setState(() {
+                            getData();
+                          });
+                        },
+                        icon: Icon(
+                          FontAwesomeIcons.magnifyingGlass,
+                          size: 26,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 35,
-                    ),
-                    Text(
-                      ('Tầng'),
-                      style:
-                          TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
-                    )
-                  ],
+                      hintText: 'Tìm tên phòng học...',
+                      hintStyle: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 70),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Tên Phòng',
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 35,
+                      ),
+                      Text(
+                        ('Tầng'),
+                        style: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.w600),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -108,8 +219,10 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      ThietBiScreen(maPH: list[index]['MaPH']),
+                                  builder: (context) => ThietBiScreen(
+                                    MaPH: list[index]['MaPH'],
+                                    tenPH: list[index]['TenPH'],
+                                  ),
                                 ),
                               ),
                               child: Padding(
@@ -147,7 +260,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                           style: const TextStyle(fontSize: 22),
                                         ),
                                       ),
-                                      levelUser == 1
+                                      Role == 'admin'
                                           ? Container(
                                               alignment: Alignment.center,
                                               height: double.infinity,
@@ -212,7 +325,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                                                       setState(
                                                                         () {
                                                                           var url =
-                                                                              "http://192.168.1.6:8012/php_connect/xoaphong.php";
+                                                                              "http://192.168.2.91:8012/php_connect/xoaphong.php";
                                                                           http.post(
                                                                             Uri.parse(url),
                                                                             body: {
@@ -225,7 +338,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                                                           .showSuccess(
                                                                         'Xóa phòng thành công',
                                                                         duration:
-                                                                            const Duration(milliseconds: 1300),
+                                                                            const Duration(milliseconds: 300),
                                                                         maskType:
                                                                             EasyLoadingMaskType.black,
                                                                       );

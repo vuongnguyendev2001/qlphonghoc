@@ -23,11 +23,11 @@ class _SuaLoaiThietBiScreenState extends State<SuaLoaiThietBiScreen> {
   TextEditingController ngayLap = TextEditingController();
 
   void updateData() async {
-    var url = "http://192.168.1.6:8012/php_connect/sualoaithietbi.php";
+    var url = "http://192.168.2.91:8012/php_connect/sualoaithietbi.php";
     await http.post(Uri.parse(url), body: {
       'MaLTB': widget.listltb[widget.indexltb]['MaLTB'],
-      "tenLTB": tenLTB.text,
-      "ngayLap": ngayLap.text,
+      "TenLTB": tenLTB.text,
+      "NgayLap": ngayLap.text,
       'MaTB': widget.listltb[widget.indexltb]['MaTB'],
     });
     EasyLoading.showSuccess(
@@ -39,9 +39,9 @@ class _SuaLoaiThietBiScreenState extends State<SuaLoaiThietBiScreen> {
 
   @override
   void initState() {
-    tenLTB.text = widget.listltb[widget.indexltb]['tenLTB'];
+    tenLTB.text = widget.listltb[widget.indexltb]['TenLTB'];
     print(widget.listltb[widget.indexltb]['MaPH']);
-    ngayLap.text = widget.listltb[widget.indexltb]['ngayLap'];
+    ngayLap.text = widget.listltb[widget.indexltb]['NgayLap'];
     super.initState();
   }
 
@@ -101,6 +101,5 @@ class _SuaLoaiThietBiScreenState extends State<SuaLoaiThietBiScreen> {
         ],
       ),
     );
-    ;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:app_quanlythietbi/baocao_suachua/baocao_suachua.dart';
 import 'package:app_quanlythietbi/home/listRoom_Screen.dart';
 import 'package:app_quanlythietbi/screens/login.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,9 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
             actions: [
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    levelUser = 0;
-                  });
                   showDialog(
                       context: context,
                       builder: (context) {
@@ -54,6 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             MaterialButton(
                               onPressed: () {
+                                setState(() {
+                                  Role = '';
+                                });
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -94,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        body: levelUser == 1
+        body: Role == 'admin'
             ? GridView(
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: MediaQuery.of(context).size.width * 0.48,
@@ -104,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 children: [
                   FeatureButton(
-                    text: 'Quản lý Thiết Bị',
+                    text: 'Quản Lý Thiết Bị',
                     press: () {
                       Navigator.push(
                           context,
@@ -115,22 +116,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     image: 'lib/asset/images/img_1.png',
                   ),
                   FeatureButton(
-                    text: 'Báo Cáo Sửa chữa',
-                    press: () {},
+                    text: 'Báo Cáo, Sữa Chữa',
+                    press: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BaoCaoSuaChua(),
+                          ));
+                    },
                     image: 'lib/asset/images/reportsuachua.png',
                   ),
                   FeatureButton(
-                    text: 'Mượn phòng',
-                    press: () {},
-                    image: 'lib/asset/images/img.png',
-                  ),
-                  FeatureButton(
-                    text: 'Báo Cáo Thiết Bị',
-                    press: () {},
-                    image: 'lib/asset/images/reportthietbi.jpg',
-                  ),
-                  FeatureButton(
-                    text: 'Yêu Cầu Đăng Ký',
+                    text: 'Người Dùng',
                     press: () {},
                     image: 'lib/asset/images/icon_PH.png',
                   ),

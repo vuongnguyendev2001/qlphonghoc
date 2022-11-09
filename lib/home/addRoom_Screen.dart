@@ -1,9 +1,11 @@
 import 'dart:convert';
+
 import 'package:app_quanlythietbi/home/listRoom_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+
 import '../component/button.dart';
 import '../component/contrast.dart';
 
@@ -18,7 +20,7 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
   final TextEditingController tenPH = TextEditingController();
   TextEditingController tang = TextEditingController();
   Future themPH() async {
-    var url = "http://192.168.1.6:8012/php_connect/quanliphonghoc.php";
+    var url = "http://192.168.2.91:8012/php_connect/quanliphonghoc.php";
     var response = await http
         .post(Uri.parse(url), body: {"TenPH": tenPH.text, "Tang": tang.text});
     var add = json.decode(response.body);

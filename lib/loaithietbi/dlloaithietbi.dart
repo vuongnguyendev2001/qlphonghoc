@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:app_quanlythietbi/loaithietbi/sualtb.dart';
 import 'package:app_quanlythietbi/loaithietbi/themloaithietbi.dart';
+import 'package:app_quanlythietbi/screens/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -8,14 +10,21 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
-import '../bctinhtrang/thembaocaott.dart';
-import '../screens/login.dart';
+import '../bctinhtrang/dlbctt.dart';
+import '../thietbi/thietbi_Screen.dart';
 
 class DLLoaiThietBiScreen extends StatefulWidget {
-  final List listltb;
-  final int indexltb;
-  const DLLoaiThietBiScreen(
-      {Key? key, required this.listltb, required this.indexltb})
+  final String MaThietBi;
+  final String TenThietBi;
+  final String MaPH;
+  final String TenPH;
+
+  DLLoaiThietBiScreen(
+      {Key? key,
+      required this.MaThietBi,
+      required this.TenThietBi,
+      required this.TenPH,
+      required this.MaPH})
       : super(key: key);
 
   @override
@@ -24,7 +33,7 @@ class DLLoaiThietBiScreen extends StatefulWidget {
 
 class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
   Future getData() async {
-    var url = "http://192.168.1.6:8012/php_connect/dlloaithietbi.php";
+    var url = "http://192.168.2.91:8012/php_connect/dlloaithietbi.php";
     var response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }
@@ -35,7 +44,15 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ThietBiScreen(
+                MaPH: widget.MaPH,
+                tenPH: widget.TenPH,
+              ),
+            ),
+          ),
           child: const Padding(
             padding: EdgeInsets.only(right: 6.0, top: 6, bottom: 6, left: 8),
             child: CircleAvatar(
@@ -46,19 +63,30 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
           ),
         ),
         centerTitle: true,
-        title: const Text('DANH SÁCH LOẠI THIẾT BỊ'),
+        title: Column(
+          children: [
+            Text('DANH SÁCH LOẠI THIẾT BỊ'),
+            Text(
+              'P: ' + widget.TenPH + ' > TB:' + widget.TenThietBi,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Colors.black),
+            ),
+          ],
+        ),
         actions: [
-          levelUser == 1
+          Role == 'admin'
               ? IconButton(
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ThemLTBScreen(
-                        maTB: widget.listltb[widget.indexltb]['MaTB'],
+                        maTB: widget.MaThietBi,
                       ),
                     ),
                   ),
-                  icon: const Icon(FontAwesomeIcons.add),
+                  icon: const Icon(FontAwesomeIcons.plus),
                 )
               : const SizedBox(),
         ],
@@ -70,53 +98,118 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
             Stack(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(0),
-                  width: double.infinity,
-                  height: 35,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerLeft,
-                        height: double.infinity,
-                        width: MediaQuery.of(context).size.width * 0.33,
-                        child: const Text(
-                          'Tên LTB',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        height: double.infinity,
-                        width: MediaQuery.of(context).size.width * 0.3,
-                        child: const Text(
-                          ('Ngày Lắp'),
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      // Container(
-                      //   alignment: Alignment.centerLeft,
-                      //   height: double.infinity,
-                      //   width: MediaQuery.of(context).size.width * 0.3,
-                      //   child: Text(
-                      //     ('Ngày Lắp'),
-                      //     style: TextStyle(
-                      //       fontSize: 22,
-                      //       color: Colors.black,
-                      //       fontWeight: FontWeight.w600,
-                      //     ),
-                      //   ),
-                      // )
-                    ],
-                  ),
-                ),
+                    padding: const EdgeInsets.all(0),
+                    width: double.infinity,
+                    height: 35,
+                    child: Role == 'admin'
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                height: double.infinity,
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: const Text(
+                                  'Mã LTB',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                height: double.infinity,
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: const Text(
+                                  'Tên LTB',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                height: double.infinity,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: const Text(
+                                  ('Ngày Lắp'),
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              // Container(
+                              //   alignment: Alignment.centerLeft,
+                              //   height: double.infinity,
+                              //   width: MediaQuery.of(context).size.width * 0.3,
+                              //   child: Text(
+                              //     ('Ngày Lắp'),
+                              //     style: TextStyle(
+                              //       fontSize: 22,
+                              //       color: Colors.black,
+                              //       fontWeight: FontWeight.w600,
+                              //     ),
+                              //   ),
+                              // )
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                height: double.infinity,
+                                width: MediaQuery.of(context).size.width * 0.27,
+                                child: const Text(
+                                  'Mã LTB',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                height: double.infinity,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: const Text(
+                                  'Tên LTB',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                height: double.infinity,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: const Text(
+                                  ('Ngày Lắp'),
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              // Container(
+                              //   alignment: Alignment.centerLeft,
+                              //   height: double.infinity,
+                              //   width: MediaQuery.of(context).size.width * 0.3,
+                              //   child: Text(
+                              //     ('Ngày Lắp'),
+                              //     style: TextStyle(
+                              //       fontSize: 22,
+                              //       color: Colors.black,
+                              //       fontWeight: FontWeight.w600,
+                              //     ),
+                              //   ),
+                              // )
+                            ],
+                          )),
               ],
             ),
             const SizedBox(
@@ -137,16 +230,21 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => ThemBaoCaoTTScreen(
-                                      maLTB: listloaithietbi[index]['MaLTB'],
+                                    builder: (context) => DLBCTinhTrangScreen(
+                                      MaLoaiThietBi: listloaithietbi[index]
+                                          ['MaLTB'],
+                                      TenThietBi: widget.TenThietBi,
+                                      TenPH: widget.TenPH,
+                                      TenLTB: listloaithietbi[index]['TenLTB'],
+                                      MaTB: widget.MaThietBi,
+                                      MaPH: widget.MaPH,
                                     ),
                                   ),
                                 );
                               },
                               child:
                                   listloaithietbi[index]['MaTB'] ==
-                                          widget.listltb[widget.indexltb]
-                                              ['MaTB']
+                                          widget.MaThietBi
                                       ? Padding(
                                           padding:
                                               const EdgeInsets.only(bottom: 10),
@@ -173,6 +271,20 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
+                                                      0.15,
+                                                  child: Text(
+                                                    listloaithietbi[index]
+                                                        ['MaLTB'],
+                                                    style: const TextStyle(
+                                                        fontSize: 20),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: double.infinity,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
                                                       0.25,
                                                   child: Text(
                                                     listloaithietbi[index]
@@ -187,7 +299,7 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.4,
+                                                      0.3,
                                                   child: Text(
                                                     listloaithietbi[index]
                                                         ['NgayLap'],
@@ -195,15 +307,17 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
                                                         fontSize: 20),
                                                   ),
                                                 ),
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  height: double.infinity,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.25,
-                                                  child: levelUser == 1
-                                                      ? Row(
+                                                Role == 'admin'
+                                                    ? Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: double.infinity,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.25,
+                                                        child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .spaceBetween,
@@ -236,7 +350,7 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
                                                                             .white),
                                                                   ),
                                                                 ),
-                                                                const SizedBox(
+                                                                SizedBox(
                                                                   width: 7,
                                                                 ),
                                                                 GestureDetector(
@@ -267,7 +381,7 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
                                                                                 onPressed: () {
                                                                                   setState(
                                                                                     () {
-                                                                                      var url = "http://192.168.1.6:8012/php_connect/xoaloaithietbi.php";
+                                                                                      var url = "http://192.168.2.91:8012/php_connect/xoaloaithietbi.php";
                                                                                       http.post(
                                                                                         Uri.parse(url),
                                                                                         body: {
@@ -283,13 +397,13 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
                                                                                   );
                                                                                   Navigator.pop(context);
                                                                                 },
-                                                                                child: const Text('Đồng ý'),
+                                                                                child: Text('Đồng ý'),
                                                                               ),
                                                                             ],
                                                                           );
                                                                         });
                                                                   },
-                                                                  child: const CircleAvatar(
+                                                                  child: CircleAvatar(
                                                                       backgroundColor: Colors.blueGrey,
                                                                       radius: 20,
                                                                       child: Icon(
@@ -303,31 +417,29 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
                                                             )
                                                           ],
                                                         )
-                                                      : Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            Text(
-                                                              listloaithietbi[
-                                                                      index]
-                                                                  ['SoLuong'],
-                                                              style:
-                                                                  const TextStyle(
-                                                                      fontSize:
-                                                                          20),
-                                                            ),
-                                                            const Icon(
-                                                                FontAwesomeIcons
-                                                                    .rightToBracket),
-                                                          ],
-                                                        ),
-                                                ),
+                                                        // : Row(
+                                                        //     mainAxisAlignment:
+                                                        //         MainAxisAlignment
+                                                        //             .spaceAround,
+                                                        //     children: [
+                                                        //       Text(
+                                                        //         listloaithietbi[
+                                                        //                 index]
+                                                        //             ['SoLuong'],
+                                                        //         style: TextStyle(
+                                                        //             fontSize: 20),
+                                                        //       ),
+                                                        //       Icon(FontAwesomeIcons
+                                                        //           .rightToBracket),
+                                                        //     ],
+                                                        //   ),
+                                                        )
+                                                    : SizedBox(),
                                               ],
                                             ),
                                           ),
                                         )
-                                      : const SizedBox(),
+                                      : SizedBox(),
                             );
                           })
                       : SpinKitFadingCircle(
