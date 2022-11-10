@@ -18,7 +18,7 @@ class _ThemLTBScreenState extends State<ThemLTBScreen> {
   TextEditingController tenLTB = TextEditingController();
   TextEditingController NgayLap = TextEditingController();
   Future themLTB() async {
-    var url = "http://192.168.2.91:8012/php_connect/themloaithietbi.php";
+    var url = "http://172.20.10.2:8012/php_connect/themloaithietbi.php";
     await http.post(Uri.parse(url), body: {
       "TenLTB": tenLTB.text,
       "NgayLap": NgayLap.text,

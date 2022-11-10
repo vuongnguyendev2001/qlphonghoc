@@ -22,11 +22,11 @@ class _EditRoomState extends State<EditRoom> {
   TextEditingController tang = TextEditingController();
 
   void updateData() async {
-    var url = "http://192.168.2.91:8012/php_connect/suaphong.php";
+    var url = "http://172.20.10.2:8012/php_connect/suaphong.php";
     await http.post(Uri.parse(url), body: {
       'MaPH': widget.listthietbi[widget.indexthietbi]['MaPH'],
       "TenPH": tenPH.text,
-      "tTang": tang.text,
+      "Tang": tang.text,
     });
     EasyLoading.showSuccess(
       'Sửa thành công !',

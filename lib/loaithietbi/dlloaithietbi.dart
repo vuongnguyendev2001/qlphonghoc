@@ -33,7 +33,7 @@ class DLLoaiThietBiScreen extends StatefulWidget {
 
 class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
   Future getData() async {
-    var url = "http://192.168.2.91:8012/php_connect/dlloaithietbi.php";
+    var url = "http://172.20.10.2:8012/php_connect/dlloaithietbi.php";
     var response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }
@@ -381,7 +381,7 @@ class _DLLoaiThietBiScreenState extends State<DLLoaiThietBiScreen> {
                                                                                 onPressed: () {
                                                                                   setState(
                                                                                     () {
-                                                                                      var url = "http://192.168.2.91:8012/php_connect/xoaloaithietbi.php";
+                                                                                      var url = "http://172.20.10.2:8012/php_connect/xoaloaithietbi.php";
                                                                                       http.post(
                                                                                         Uri.parse(url),
                                                                                         body: {

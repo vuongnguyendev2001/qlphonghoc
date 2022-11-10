@@ -25,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   Future register() async {
-    var url = "http://192.168.2.91:8012/php_connect/register.php";
+    var url = "http://172.20.10.2:8012/php_connect/register.php";
     var response = await http.post(body: {
       "username": user.text,
       "fullname": name.text,

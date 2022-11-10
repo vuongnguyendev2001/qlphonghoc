@@ -27,7 +27,7 @@ class ThietBiScreen extends StatefulWidget {
 class _ThietBiScreenState extends State<ThietBiScreen> {
   TextEditingController TenThietBi = TextEditingController();
   Future getData() async {
-    var url1 = "http://192.168.2.91:8012/php_connect/timthietbi.php";
+    var url1 = "http://172.20.10.2:8012/php_connect/timthietbi.php";
     var response = await http.post(Uri.parse(url1), body: {
       "TenTB": TenThietBi.text,
       "MaPH": widget.MaPH,
@@ -333,7 +333,7 @@ class _ThietBiScreenState extends State<ThietBiScreen> {
                                                                                 () {
                                                                               setState(
                                                                                 () {
-                                                                                  var url = "http://192.168.2.91:8012/php_connect/xoathietbi.php";
+                                                                                  var url = "http://172.20.10.2:8012/php_connect/xoathietbi.php";
                                                                                   http.post(
                                                                                     Uri.parse(url),
                                                                                     body: {

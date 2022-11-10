@@ -14,13 +14,13 @@ class BaoCaoSuaChua extends StatefulWidget {
 class _BaoCaoSuaChuaState extends State<BaoCaoSuaChua> {
   List listtt = [];
   Future getData() async {
-    var Url = "http://192.168.2.91:8012/php_connect/thongkebctt.php";
+    var Url = "http://172.20.10.2:8012/php_connect/thongkebctt.php";
     var response1 = await http.get(Uri.parse(Url));
     return json.decode(response1.body);
   }
 
   Future TinhTrang(String matt) async {
-    var Url = "http://192.168.2.91:8012/php_connect/tinhtrangsuachua.php";
+    var Url = "http://172.20.10.2:8012/php_connect/tinhtrangsuachua.php";
     await http.post(Uri.parse(Url), body: {'MaTT': matt});
     var response = await http.get(Uri.parse(Url));
     print(json.decode(response.body));

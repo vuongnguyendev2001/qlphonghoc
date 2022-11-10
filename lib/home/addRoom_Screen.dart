@@ -20,7 +20,7 @@ class _AddRoomScreenState extends State<AddRoomScreen> {
   final TextEditingController tenPH = TextEditingController();
   TextEditingController tang = TextEditingController();
   Future themPH() async {
-    var url = "http://192.168.2.91:8012/php_connect/quanliphonghoc.php";
+    var url = "http://172.20.10.2:8012/php_connect/quanliphonghoc.php";
     var response = await http
         .post(Uri.parse(url), body: {"TenPH": tenPH.text, "Tang": tang.text});
     var add = json.decode(response.body);

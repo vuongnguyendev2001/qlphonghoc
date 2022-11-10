@@ -23,7 +23,7 @@ class ListRoomScreen extends StatefulWidget {
 
 class _ListRoomScreenState extends State<ListRoomScreen> {
   Future getData() async {
-    var Url = "http://192.168.2.91:8012/php_connect/timphong.php";
+    var Url = "http://172.20.10.2:8012/php_connect/timphong.php";
     var response1 = await http.post(Uri.parse(Url), body: {
       "TenPH": Tenphonghoc.text,
     });
@@ -325,7 +325,7 @@ class _ListRoomScreenState extends State<ListRoomScreen> {
                                                                       setState(
                                                                         () {
                                                                           var url =
-                                                                              "http://192.168.2.91:8012/php_connect/xoaphong.php";
+                                                                              "http://172.20.10.2:8012/php_connect/xoaphong.php";
                                                                           http.post(
                                                                             Uri.parse(url),
                                                                             body: {

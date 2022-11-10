@@ -20,7 +20,7 @@ class _ThemThietBiScreen extends State<ThemThietBiScreen> {
   TextEditingController soLuong = TextEditingController();
 
   Future themTB() async {
-    var url = "http://192.168.2.91:8012/php_connect/themthietbi.php";
+    var url = "http://172.20.10.2:8012/php_connect/themthietbi.php";
     await http.post(Uri.parse(url), body: {
       "TenTB": tenTB.text,
       "TenNhanHieu": tenNhanHieu.text,

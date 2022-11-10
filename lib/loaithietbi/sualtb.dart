@@ -23,7 +23,7 @@ class _SuaLoaiThietBiScreenState extends State<SuaLoaiThietBiScreen> {
   TextEditingController ngayLap = TextEditingController();
 
   void updateData() async {
-    var url = "http://192.168.2.91:8012/php_connect/sualoaithietbi.php";
+    var url = "http://172.20.10.2:8012/php_connect/sualoaithietbi.php";
     await http.post(Uri.parse(url), body: {
       'MaLTB': widget.listltb[widget.indexltb]['MaLTB'],
       "TenLTB": tenLTB.text,

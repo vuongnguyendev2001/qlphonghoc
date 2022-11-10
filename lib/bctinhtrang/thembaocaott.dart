@@ -33,7 +33,7 @@ class _ThemBaoCaoTTScreenState extends State<ThemBaoCaoTTScreen> {
   TextEditingController noiDungBC = TextEditingController();
 
   Future thembaocao() async {
-    var url = "http://192.168.2.91:8012/php_connect/thembaocao.php";
+    var url = "http://172.20.10.2:8012/php_connect/thembaocao.php";
     await http.post(Uri.parse(url), body: {
       "NoiDungBC": noiDungBC.text,
       "MaLTB": widget.maLTB,

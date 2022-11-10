@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   Future login() async {
-    var url = "http://192.168.2.91:8012/php_connect/login.php";
+    var url = "http://172.20.10.2:8012/php_connect/login.php";
     var response = await http.post(Uri.parse(url), body: {
       "username": username.text,
       "password": password.text,
@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future getID() async {
-    var url = "http://192.168.2.91:8012/php_connect/getiduser.php";
+    var url = "http://172.20.10.2:8012/php_connect/getiduser.php";
     var response = await http.post(Uri.parse(url), body: {
       "username": username.text,
       "password": password.text,

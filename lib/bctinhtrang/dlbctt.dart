@@ -34,7 +34,7 @@ class DLBCTinhTrangScreen extends StatefulWidget {
 
 class _DLBCTinhTrangScreenState extends State<DLBCTinhTrangScreen> {
   Future getData() async {
-    var url = "http://192.168.2.91:8012/php_connect/dltinhtrang.php";
+    var url = "http://172.20.10.2:8012/php_connect/dltinhtrang.php";
     var response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }
@@ -218,7 +218,7 @@ class _DLBCTinhTrangScreenState extends State<DLBCTinhTrangScreen> {
                                                                       setState(
                                                                         () {
                                                                           var url =
-                                                                              "http://192.168.2.91:8012/php_connect/xoabctinhtrang.php";
+                                                                              "http://172.20.10.2:8012/php_connect/xoabctinhtrang.php";
                                                                           http.post(
                                                                             Uri.parse(url),
                                                                             body: {

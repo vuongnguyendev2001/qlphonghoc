@@ -1,10 +1,11 @@
-import 'package:app_quanlythietbi/baocao_suachua/baocao_suachua.dart';
 import 'package:app_quanlythietbi/home/listRoom_Screen.dart';
 import 'package:app_quanlythietbi/screens/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../baocao_suachua/baocao_suachua.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -126,11 +127,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     image: 'lib/asset/images/reportsuachua.png',
                   ),
-                  FeatureButton(
-                    text: 'Người Dùng',
-                    press: () {},
-                    image: 'lib/asset/images/icon_PH.png',
-                  ),
+                  // FeatureButton(
+                  //   text: 'Người Dùng',
+                  //   press: () {},
+                  //   image: 'lib/asset/images/icon_PH.png',
+                  // ),
                 ],
               )
             : GridView(
