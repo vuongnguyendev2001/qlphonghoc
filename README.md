@@ -1,16 +1,10 @@
-# app_quanlythietbi
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![login](https://user-images.githubusercontent.com/97358392/201896445-aa6322f5-c92a-49f7-a37f-f58b20add81c.png)
+![register](https://user-images.githubusercontent.com/97358392/201896463-5ec86a21-875d-4555-904a-05e70069c845.png)
+![homeScreenadmin](https://user-images.githubusercontent.com/97358392/201896490-c39973cd-bafd-4752-bdea-4a26eaff4c07.png)
+![phong_user](https://user-images.githubusercontent.com/97358392/201896605-24a0f41d-de72-40d8-b0c7-79b38fe5513a.png)
+![thietbi](https://user-images.githubusercontent.com/97358392/201896620-31e00ed3-e763-4a42-a4fc-7409ef0046f1.png)
+![loaithietbi](https://user-images.githubusercontent.com/97358392/201896668-cb681fee-675c-4dab-b3fc-973f0f19bd30.png)
+![loaithietbi2](https://user-images.githubusercontent.com/97358392/201896686-6c1568f3-29a4-4ea4-b599-b89cd55ac120.png)
+![search_user](https://user-images.githubusercontent.com/97358392/201896705-3166d690-f313-45cd-a439-51798a8d92b4.png)
+![baocaopng](https://user-images.githubusercontent.com/97358392/201896719-ff06fbd1-9128-465e-8924-f99d7189f777.png)
+![baocaouser](https://user-images.githubusercontent.com/97358392/201896737-6c006240-1724-4ddb-8739-b242def52210.png)
